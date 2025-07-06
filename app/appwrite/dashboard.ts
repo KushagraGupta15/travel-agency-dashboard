@@ -1,4 +1,4 @@
-import { parseTripData } from "lib/utils";
+import { parseTripData } from "~/lib/utils";
 import { appwriteConfig, database } from "./client";
 
 interface Document {

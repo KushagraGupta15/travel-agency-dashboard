@@ -1,4 +1,4 @@
-import { cn } from "lib/utils";
+import { cn } from "~/lib/utils";
 import { Link, NavLink, useLoaderData, useNavigate } from "react-router";
 import { logoutUser } from "~/appwrite/auth";
 import { sidebarItems } from "~/constants";

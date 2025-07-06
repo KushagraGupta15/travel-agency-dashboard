@@ -25,7 +25,7 @@ import {
   getUsersAndTripsStats,
 } from "~/appwrite/dashboard";
 import { getAllTrips } from "~/appwrite/trips";
-import { parseTripData } from "lib/utils";
+import { parseTripData } from "~/lib/utils";
 
 export const clientLoader = async () => {
   const [

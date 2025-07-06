@@ -1,5 +1,5 @@
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
-import { cn } from "lib/utils";
+import { cn } from "~/lib/utils";
 import { Link, useLocation } from "react-router";
 
 interface Props {

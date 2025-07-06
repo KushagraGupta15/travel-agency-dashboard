@@ -3,7 +3,7 @@ import {GoogleGenerativeAI} from "@google/generative-ai";
 
 import {appwriteConfig, database} from "~/appwrite/client";
 import {ID} from "appwrite";
-import { parseMarkdownToJson, parseTripData } from "lib/utils";
+import { parseMarkdownToJson, parseTripData } from "~/lib/utils";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
     const {

@@ -12,18 +12,35 @@ import { world_map } from "~/constants/world_map";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import { account } from "~/appwrite/client";
 import { useNavigate } from "react-router";
-import { cn, formatKey } from "lib/utils";
+import { cn, formatKey } from "~/lib/utils";
 
 export const loader = async () => {
-  const response = await fetch("https://restcountries.com/v3.1/all");
-  const data = await response.json();
+  try {
+    const response = await fetch(
+      "https://restcountries.com/v3.1/all?fields=name,latlng,maps"
+    );
 
-  return data.map((country: any) => ({
-    name: country.flag + country.name.common,
-    coordinates: country.latlng,
-    value: country.name.common,
-    openStreetMap: country.maps?.openStreetMap,
-  }));
+    if (!response.ok) {
+      throw new Error("Failed to fetch countries");
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data)) {
+      console.error("Unexpected response format:", data);
+      throw new Error("API did not return an array");
+    }
+
+    return data.map((country: any) => ({
+      name: `${country.name.common}`,
+      coordinates: country.latlng,
+      value: country.name.common,
+      openStreetMap: country.maps?.openStreetMap,
+    }));
+  } catch (error) {
+    console.error("Loader error:", error);
+    throw new Error("Could not load countries");
+  }
 };
 
 const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
