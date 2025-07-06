@@ -15,32 +15,15 @@ import { useNavigate } from "react-router";
 import { cn, formatKey } from "lib/utils";
 
 export const loader = async () => {
-  try {
-    const response = await fetch(
-      "https://restcountries.com/v3.1/all?fields=name,latlng,maps"
-    );
+  const response = await fetch("https://restcountries.com/v3.1/all");
+  const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch countries");
-    }
-
-    const data = await response.json();
-
-    if (!Array.isArray(data)) {
-      console.error("Unexpected response format:", data);
-      throw new Error("API did not return an array");
-    }
-
-    return data.map((country: any) => ({
-      name: `${country.name.common}`,
-      coordinates: country.latlng,
-      value: country.name.common,
-      openStreetMap: country.maps?.openStreetMap,
-    }));
-  } catch (error) {
-    console.error("Loader error:", error);
-    throw new Error("Could not load countries");
-  }
+  return data.map((country: any) => ({
+    name: country.flag + country.name.common,
+    coordinates: country.latlng,
+    value: country.name.common,
+    openStreetMap: country.maps?.openStreetMap,
+  }));
 };
 
 const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
