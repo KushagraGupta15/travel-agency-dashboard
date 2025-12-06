@@ -36,12 +36,14 @@ export const storeUserData = async () => {
         name: user.name,
         imageUrl: profilePicture,
         joinedAt: new Date().toISOString(),
+        status: "user", // Default status for new users
       }
     );
 
-    if (!createdUser.$id) redirect("/sign-in");
+    return createdUser;
   } catch (error) {
     console.error("Error storing user data:", error);
+    throw error;
   }
 };
 
